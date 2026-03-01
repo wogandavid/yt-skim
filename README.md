@@ -21,11 +21,17 @@ YT Skim app uses external CLIs for summarization and auth.
 npm install -g @steipete/summarize
 ```
 
-2. Install Codex CLI (or Codex app that includes `codex`), then authenticate:
+2. Install Codex CLI (or Codex app that includes `codex`), then authenticate with your OpenAI account:
 
 ```bash
 codex login
 ```
+
+When prompted:
+
+- Choose `Continue with OpenAI`.
+- Complete browser sign-in with the OpenAI account you want to use for summaries.
+- Return to Terminal after success.
 
 3. Optional but recommended for X reliability:
 
@@ -42,7 +48,7 @@ brew install steipete/tap/bird
 5. In the app menu, run `First-Run Check` and confirm:
 - `summarize` available
 - `codex` available
-- `Codex login status` is logged in
+- `Codex login status` is logged in (OpenAI account connected)
 
 ## Runtime Behavior
 

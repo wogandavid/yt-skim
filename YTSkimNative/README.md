@@ -12,7 +12,17 @@ Production AppKit menu bar implementation for YT Skim.
 Required:
 
 - `summarize`
-- `codex` (authenticated via `codex login`)
+- `codex` (authenticated via `codex login` and OpenAI browser sign-in)
+
+OpenAI auth flow:
+
+```bash
+codex login
+```
+
+- Choose `Continue with OpenAI`.
+- Complete browser sign-in.
+- Re-run `First-Run Check` in the app to confirm login status.
 
 Optional:
 
