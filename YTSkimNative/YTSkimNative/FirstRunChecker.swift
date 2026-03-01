@@ -43,6 +43,18 @@ final class FirstRunChecker: @unchecked Sendable {
       remediation: codexExists ? "No action needed." : "Install Codex app/CLI and ensure binary is available."
     ))
 
+    let birdExists = await commandExists("bird")
+    items.append(CheckItem(
+      title: "`bird` availability (optional for X)",
+      status: birdExists ? .pass : .info,
+      details: birdExists
+        ? "Command `bird` is available. X link fetch reliability is improved."
+        : "Command `bird` not found. Some X posts may fail to summarize.",
+      remediation: birdExists
+        ? "No action needed."
+        : "Optional: install bird for better X support: https://github.com/steipete/bird"
+    ))
+
     items.append(await runner.dryRunSchemaCheck())
     items.append(await notificationStatusCheck())
     return items

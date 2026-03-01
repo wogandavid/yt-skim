@@ -59,7 +59,7 @@ final class ScriptRunner: @unchecked Sendable {
           remediation: "Ensure bundled yt-skim.sh is up to date and returns JSON in --app-mode --json."
         )
       }
-      if response.ok == false && response.errorCode == "INVALID_URL" {
+      if response.ok == false && (response.errorCode == "INVALID_URL" || response.errorCode == "UNSUPPORTED_URL") {
         return CheckItem(
           title: "Engine JSON contract",
           status: .pass,

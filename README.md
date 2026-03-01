@@ -1,6 +1,6 @@
 # YT Skim
 
-YouTube link summarizer that avoids opening/watching videos.
+YouTube and X link summarizer that avoids opening/watching content.
 
 ## Production App (Proper Native Path)
 
@@ -32,7 +32,22 @@ Artifacts:
 - `/Users/david/Documents/tldr/dist/YT Skim.app`
 - `/Users/david/Documents/tldr/dist/YT-Skim-unsigned.dmg`
 
-## CLI Engine Contract (unchanged)
+## Supported Links
+
+- YouTube (`youtube.com`, `youtu.be`, including mobile YouTube links)
+- X post URLs (`x.com/.../status/...` and `twitter.com/.../status/...`)
+
+## Optional Dependency For X
+
+- `bird` is optional but improves X fetch reliability.
+- Install: <https://github.com/steipete/bird>
+
+## Known Limitations
+
+- X support is public-post best effort (single-post only).
+- Private, deleted, or rate-limited X posts can fail.
+
+## CLI Engine Contract
 
 Command:
 
@@ -43,13 +58,13 @@ Command:
 Success JSON:
 
 ```json
-{"ok":true,"summary":"...","mode":"standard","source":"youtube","exit_code":0}
+{"ok":true,"summary":"...","mode":"standard","source":"youtube|x","exit_code":0}
 ```
 
 Failure JSON:
 
 ```json
-{"ok":false,"error_code":"INVALID_URL|MISSING_DEP|BACKEND_FAIL","message":"...","details":"...","exit_code":2|3|4}
+{"ok":false,"error_code":"INVALID_URL|UNSUPPORTED_URL|MISSING_DEP|X_FETCH_UNAVAILABLE|BACKEND_FAIL","message":"...","details":"...","exit_code":2|3|4}
 ```
 
 ## Legacy Path

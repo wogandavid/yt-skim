@@ -19,22 +19,23 @@ SUMMARY_FILE="/tmp/yt-skim-last-summary.txt"
 META_FILE="/tmp/yt-skim-last-meta.json"
 TTL_SECONDS=1800
 CODEX_BIN=""
+SOURCE_KIND=""
 
 usage() {
-  cat <<'EOF'
+  cat <<'EOF_USAGE'
 Usage:
   yt-skim.sh [--mode short|standard|structured] [--url <url>] [--input-url <url>] [--no-popup] [--keep-clipboard] [--app-mode] [--json]
 
 Options:
   --mode            Summary format (default: standard)
-  --url             YouTube URL. If omitted, reads from clipboard.
+  --url             Supported link (YouTube or X). If omitted, reads from clipboard.
   --input-url       Alias of --url for app integration.
   --no-popup        Skip "Open full summary?" prompt.
   --keep-clipboard  Keep original clipboard content.
   --app-mode        Disable notification/dialog side effects.
   --json            Emit one JSON object to stdout.
   -h, --help        Show this help text.
-EOF
+EOF_USAGE
 }
 
 notify() {
@@ -86,11 +87,13 @@ check_deps() {
       missing=1
     fi
   done
+
   if [[ -z "$CODEX_BIN" ]]; then
     echo "Missing dependency: codex" >&2
     missing_list+="codex "
     missing=1
   fi
+
   if (( missing == 1 )); then
     if (( JSON_OUTPUT == 1 )); then
       emit_json_error "MISSING_DEP" "Couldn't summarize. Missing dependency." "Missing dependency: ${missing_list%% }" "$EXIT_MISSING_DEP"
@@ -127,6 +130,24 @@ is_youtube_url() {
   [[ "$u" =~ ^https?://([a-zA-Z0-9-]+\.)?(youtube\.com|youtu\.be)/.+$ ]]
 }
 
+is_x_status_url() {
+  local u="$1"
+  [[ "$u" =~ ^https?://([a-zA-Z0-9-]+\.)?(x\.com|twitter\.com)/([^/]+/status|i/web/status)/[0-9]+([/?#].*)?$ ]]
+}
+
+classify_source_url() {
+  local u="$1"
+  if is_youtube_url "$u"; then
+    printf '%s' "youtube"
+    return
+  fi
+  if is_x_status_url "$u"; then
+    printf '%s' "x"
+    return
+  fi
+  printf '%s' "unsupported"
+}
+
 sanitize_output() {
   sed -E 's/\x1B\[[0-9;]*[A-Za-z]//g' \
   | sed -E 's/\r//g' \
@@ -161,9 +182,11 @@ json_escape() {
 
 emit_json_success() {
   local summary="$1"
-  printf '{"ok":true,"summary":"%s","mode":"%s","source":"youtube","exit_code":0}\n' \
+  local source="$2"
+  printf '{"ok":true,"summary":"%s","mode":"%s","source":"%s","exit_code":0}\n' \
     "$(json_escape "$summary")" \
-    "$(json_escape "$MODE")"
+    "$(json_escape "$MODE")" \
+    "$(json_escape "$source")"
 }
 
 emit_json_error() {
@@ -195,33 +218,53 @@ build_style_instruction() {
   esac
 }
 
-summarize_video() {
-  local input_url="$1"
+summarize_link() {
+  local source_kind="$1"
+  local input_url="$2"
   local style_instruction
   style_instruction="$(build_style_instruction)" || return 1
 
-  summarize "$input_url" \
-    --cli codex \
-    --plain \
-    --youtube auto \
-    --length medium \
-    --prompt "$style_instruction"
+  if [[ "$source_kind" == "youtube" ]]; then
+    summarize "$input_url" \
+      --cli codex \
+      --plain \
+      --youtube auto \
+      --length medium \
+      --prompt "$style_instruction"
+  else
+    summarize "$input_url" \
+      --cli codex \
+      --plain \
+      --length medium \
+      --prompt "$style_instruction"
+  fi
+}
+
+is_x_fetch_unavailable_error() {
+  local text="$1"
+  local lower
+  lower="$(printf '%s' "$text" | tr '[:upper:]' '[:lower:]')"
+
+  [[ "$lower" == *"bird not available"* ]] \
+    || [[ "$lower" == *"unable to fetch tweet content from x"* ]] \
+    || [[ "$lower" == *"nitter returned empty body"* ]] \
+    || [[ "$lower" == *"nitter failed"* ]] \
+    || [[ "$lower" == *"unable to fetch"* && "$lower" == *"x"* ]]
 }
 
 preview_text() {
   local text="$1"
-  # 220 chars for compact notification body
   printf '%s' "$text" | tr '\n' ' ' | sed -E 's/[[:space:]]+/ /g' | cut -c1-220
 }
 
 popup_prompt() {
-  osascript <<'EOF' 2>/dev/null
+  osascript <<'EOF_POPUP' 2>/dev/null
 tell application "System Events"
   activate
   set d to display dialog "Open full summary?" buttons {"Dismiss", "Open"} default button "Open" with title "YT Skim" with icon note
   return button returned of d
 end tell
-EOF
+EOF_POPUP
 }
 
 write_meta() {
@@ -229,9 +272,9 @@ write_meta() {
   local ts url_hash
   ts="$(date +%s)"
   url_hash="$(printf '%s' "$source_url" | shasum -a 256 | awk '{print $1}')"
-  cat >"$META_FILE" <<EOF
+  cat >"$META_FILE" <<EOF_META
 {"timestamp":$ts,"mode":"$MODE","url_hash":"$url_hash"}
-EOF
+EOF_META
 }
 
 parse_args() {
@@ -287,6 +330,7 @@ main() {
   if (( APP_MODE == 1 )) && (( KEEP_CLIPBOARD_SET == 0 )); then
     KEEP_CLIPBOARD=1
   fi
+
   cleanup_old_tmp
   resolve_codex_bin
   check_deps
@@ -309,29 +353,41 @@ main() {
     local details="Clipboard (or --url) is empty."
     echo "$details" >&2
     if (( JSON_OUTPUT == 1 )); then
-      emit_json_error "INVALID_URL" "Couldn't summarize. Not a YouTube link." "$details" "$EXIT_INVALID_URL"
+      emit_json_error "INVALID_URL" "Couldn't summarize. No link found." "$details" "$EXIT_INVALID_URL"
     fi
-    error_notify "Couldn't summarize. Not a YouTube link."
+    error_notify "Couldn't summarize. No link found."
     exit "$EXIT_INVALID_URL"
   fi
 
-  if ! is_youtube_url "$source_url"; then
-    local details="Rejected non-YouTube URL: $source_url"
+  SOURCE_KIND="$(classify_source_url "$source_url")"
+  if [[ "$SOURCE_KIND" == "unsupported" ]]; then
+    local details="Unsupported URL. Supported links: YouTube and X post URLs. Received: $source_url"
     echo "$details" >&2
     if (( JSON_OUTPUT == 1 )); then
-      emit_json_error "INVALID_URL" "Couldn't summarize. Not a YouTube link." "$details" "$EXIT_INVALID_URL"
+      emit_json_error "UNSUPPORTED_URL" "Couldn't summarize. Only YouTube and X links are supported." "$details" "$EXIT_INVALID_URL"
     fi
-    error_notify "Couldn't summarize. Not a YouTube link."
+    error_notify "Couldn't summarize. Only YouTube and X links are supported."
     exit "$EXIT_INVALID_URL"
   fi
 
   local output
-  if ! output="$(summarize_video "$source_url" 2>&1)"; then
+  if ! output="$(summarize_link "$SOURCE_KIND" "$source_url" 2>&1)"; then
     echo "$output" >&2
-    if (( JSON_OUTPUT == 1 )); then
-      emit_json_error "BACKEND_FAIL" "Couldn't summarize. Maybe the video saved you some time." "$output" "$EXIT_SUMMARIZE_FAIL"
+
+    if [[ "$SOURCE_KIND" == "x" ]] && is_x_fetch_unavailable_error "$output"; then
+      local x_message="Couldn't summarize this X post. It may be private or require extra fetch support."
+      local x_details="Try a public post, or install bird for better X support. Backend output: $output"
+      if (( JSON_OUTPUT == 1 )); then
+        emit_json_error "X_FETCH_UNAVAILABLE" "$x_message" "$x_details" "$EXIT_SUMMARIZE_FAIL"
+      fi
+      error_notify "$x_message"
+      exit "$EXIT_SUMMARIZE_FAIL"
     fi
-    error_notify "Couldn't summarize. Maybe the video saved you some time."
+
+    if (( JSON_OUTPUT == 1 )); then
+      emit_json_error "BACKEND_FAIL" "Couldn't summarize. Maybe the content saved you some time." "$output" "$EXIT_SUMMARIZE_FAIL"
+    fi
+    error_notify "Couldn't summarize. Maybe the content saved you some time."
     exit "$EXIT_SUMMARIZE_FAIL"
   fi
 
@@ -340,9 +396,9 @@ main() {
     local details="Summarize returned empty output."
     echo "$details" >&2
     if (( JSON_OUTPUT == 1 )); then
-      emit_json_error "BACKEND_FAIL" "Couldn't summarize. Maybe the video saved you some time." "$details" "$EXIT_SUMMARIZE_FAIL"
+      emit_json_error "BACKEND_FAIL" "Couldn't summarize. Maybe the content saved you some time." "$details" "$EXIT_SUMMARIZE_FAIL"
     fi
-    error_notify "Couldn't summarize. Maybe the video saved you some time."
+    error_notify "Couldn't summarize. Maybe the content saved you some time."
     exit "$EXIT_SUMMARIZE_FAIL"
   fi
 
@@ -354,7 +410,7 @@ main() {
   fi
 
   if (( JSON_OUTPUT == 1 )); then
-    emit_json_success "$output"
+    emit_json_success "$output" "$SOURCE_KIND"
   fi
 
   (( APP_MODE == 1 )) && exit 0

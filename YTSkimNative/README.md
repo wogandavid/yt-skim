@@ -2,6 +2,21 @@
 
 This is the production menu bar implementation.
 
+## Supported Links
+
+- YouTube videos
+- X post URLs (`x.com/.../status/...`, `twitter.com/.../status/...`)
+
+## Optional Dependency For X
+
+- `bird` improves X fetch reliability and is optional.
+- Install: <https://github.com/steipete/bird>
+
+## Known Limitations
+
+- X support is single-post only (no thread expansion).
+- Private/deleted/rate-limited X posts can fail.
+
 ## Architecture
 
 - AppKit lifecycle with persistent `NSStatusItem`
@@ -27,11 +42,12 @@ This is the production menu bar implementation.
 1. Launch app and confirm menu bar item appears immediately.
 2. Verify exactly one app process is running.
 3. Copy valid YouTube URL and run `Summarize Clipboard`.
-4. Verify invalid URL shows friendly error + details.
-5. Toggle mode, launch at login, replace clipboard, and Dock debug visibility.
-6. Validate hotkey trigger and persistence after relaunch.
-7. Use `First-Run Check` and confirm dependency diagnostics.
-8. Run 1-hour soak (repeat summarize/open menu/idle cycles) with no crashes or disappearing menu bar item.
+4. Copy valid X post URL and run `Summarize Clipboard`.
+5. Verify invalid/unsupported URL shows friendly error + details.
+6. Toggle mode, launch at login, replace clipboard, and Dock debug visibility.
+7. Validate hotkey trigger and persistence after relaunch.
+8. Use `First-Run Check` and confirm dependency diagnostics (including optional `bird` check).
+9. Run 1-hour soak (repeat summarize/open menu/idle cycles) with no crashes or disappearing menu bar item.
 
 ## Open in Xcode
 
