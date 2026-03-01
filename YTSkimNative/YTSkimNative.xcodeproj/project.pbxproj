@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		17EAAF609BE3293C962B227F /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758D91F654F660BD2034E5A /* ChecklistView.swift */; };
+		20E403137AEE36B52E2F7825 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D395AD202A0A8120FDB88B /* Types.swift */; };
+		51BE7640CE4DB506AF05D3FA /* FirstRunChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15C263875678F61205FAEE8 /* FirstRunChecker.swift */; };
+		588216559D371378C802AAC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F8074C6BE86D51B6246CB0 /* AppDelegate.swift */; };
+		62B0A0F12308E27E45B62661 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BFB0E498A8CF372168F433 /* main.swift */; };
+		8194C79B890D34B19F7F5B0C /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F59F0E218CE2FCC816DC9BF /* ResultView.swift */; };
+		84EF1FAFEF14D0FE087F5F3B /* ScriptRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FDC4568C3D769B60A7BD8 /* ScriptRunner.swift */; };
+		889F394D6F74D2E6079D1113 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E23600F89392DF4CD69F5D8C /* LaunchAtLogin */; };
+		924BBDC01EF6EA5856F757BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3DD920E8D1968D5DC6C39 /* SettingsView.swift */; };
+		A22B99B240E8091BA042F044 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE699B289504BEB85DE45782 /* SettingsStore.swift */; };
+		CA5F7C1E41F168CD51BFE5E3 /* HotkeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FEF00CAB2D8C8EF805515A /* HotkeyNames.swift */; };
+		DFDC9074579FD2D672513308 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 675EA810D6D79FC646367910 /* KeyboardShortcuts */; };
+		E20574464F6A18CFAC40B85F /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2F375E5FA8BF2F2294658 /* AppModel.swift */; };
+		F065FCC015A95DF1C6254A2E /* PopoverContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED919E6F9E879E328E5F8A6 /* PopoverContainerView.swift */; };
+		F194D815FE616F3B97855DA4 /* yt-skim.sh in Resources */ = {isa = PBXBuildFile; fileRef = A2E891EAC20033EC7333E162 /* yt-skim.sh */; };
+		F5BC8C40AF31FB73E49F5A31 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A673A339D7FAF3925DA6EC1 /* StatusBarController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0F59F0E218CE2FCC816DC9BF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		2ED919E6F9E879E328E5F8A6 /* PopoverContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverContainerView.swift; sourceTree = "<group>"; };
+		39FEF00CAB2D8C8EF805515A /* HotkeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyNames.swift; sourceTree = "<group>"; };
+		40D395AD202A0A8120FDB88B /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		66BFB0E498A8CF372168F433 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		68F8074C6BE86D51B6246CB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A673A339D7FAF3925DA6EC1 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		7A4FDC4568C3D769B60A7BD8 /* ScriptRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptRunner.swift; sourceTree = "<group>"; };
+		8BBAD2BFEEB8A33049D0059E /* YT Skim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YT Skim.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2E891EAC20033EC7333E162 /* yt-skim.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "yt-skim.sh"; sourceTree = "<group>"; };
+		AE699B289504BEB85DE45782 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		AFF3DD920E8D1968D5DC6C39 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C15C263875678F61205FAEE8 /* FirstRunChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunChecker.swift; sourceTree = "<group>"; };
+		C758D91F654F660BD2034E5A /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
+		D0C2F375E5FA8BF2F2294658 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		424AE3114A8235677930F8DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFDC9074579FD2D672513308 /* KeyboardShortcuts in Frameworks */,
+				889F394D6F74D2E6079D1113 /* LaunchAtLogin in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C38CD1CE03CB04A21878D88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8BBAD2BFEEB8A33049D0059E /* YT Skim.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		110948E8134DC5BE8FD5F4D4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2E891EAC20033EC7333E162 /* yt-skim.sh */,
+			);
+			name = Resources;
+			path = YTSkimNative/Resources;
+			sourceTree = "<group>";
+		};
+		1CEDD1F51648E7BDF215678A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C758D91F654F660BD2034E5A /* ChecklistView.swift */,
+				2ED919E6F9E879E328E5F8A6 /* PopoverContainerView.swift */,
+				0F59F0E218CE2FCC816DC9BF /* ResultView.swift */,
+				AFF3DD920E8D1968D5DC6C39 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4186E985EDF245C5037499E0 = {
+			isa = PBXGroup;
+			children = (
+				110948E8134DC5BE8FD5F4D4 /* Resources */,
+				91324E15F28DC9485E1E0F7E /* YTSkimNative */,
+				0C38CD1CE03CB04A21878D88 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		91324E15F28DC9485E1E0F7E /* YTSkimNative */ = {
+			isa = PBXGroup;
+			children = (
+				68F8074C6BE86D51B6246CB0 /* AppDelegate.swift */,
+				D0C2F375E5FA8BF2F2294658 /* AppModel.swift */,
+				C15C263875678F61205FAEE8 /* FirstRunChecker.swift */,
+				39FEF00CAB2D8C8EF805515A /* HotkeyNames.swift */,
+				66BFB0E498A8CF372168F433 /* main.swift */,
+				7A4FDC4568C3D769B60A7BD8 /* ScriptRunner.swift */,
+				AE699B289504BEB85DE45782 /* SettingsStore.swift */,
+				6A673A339D7FAF3925DA6EC1 /* StatusBarController.swift */,
+				40D395AD202A0A8120FDB88B /* Types.swift */,
+				1CEDD1F51648E7BDF215678A /* Views */,
+			);
+			path = YTSkimNative;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11C64C4E8061D9F8E35FF60C /* YT Skim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58BD8E88F36CDF2EFD2A1DD2 /* Build configuration list for PBXNativeTarget "YT Skim" */;
+			buildPhases = (
+				423F134C80E4C050F155681A /* Sources */,
+				A6B64240725501F90DEA3509 /* Resources */,
+				424AE3114A8235677930F8DC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "YT Skim";
+			packageProductDependencies = (
+				675EA810D6D79FC646367910 /* KeyboardShortcuts */,
+				E23600F89392DF4CD69F5D8C /* LaunchAtLogin */,
+			);
+			productName = "YT Skim";
+			productReference = 8BBAD2BFEEB8A33049D0059E /* YT Skim.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40B56CC7533004A8779AE97B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = CAC54D6200B7A743A471F951 /* Build configuration list for PBXProject "YTSkimNative" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4186E985EDF245C5037499E0;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				67D28E96B901893CF07A5280 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				EE2F09AE3A7C97A794DC5DBA /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11C64C4E8061D9F8E35FF60C /* YT Skim */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A6B64240725501F90DEA3509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F194D815FE616F3B97855DA4 /* yt-skim.sh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		423F134C80E4C050F155681A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				588216559D371378C802AAC2 /* AppDelegate.swift in Sources */,
+				E20574464F6A18CFAC40B85F /* AppModel.swift in Sources */,
+				17EAAF609BE3293C962B227F /* ChecklistView.swift in Sources */,
+				51BE7640CE4DB506AF05D3FA /* FirstRunChecker.swift in Sources */,
+				CA5F7C1E41F168CD51BFE5E3 /* HotkeyNames.swift in Sources */,
+				F065FCC015A95DF1C6254A2E /* PopoverContainerView.swift in Sources */,
+				8194C79B890D34B19F7F5B0C /* ResultView.swift in Sources */,
+				84EF1FAFEF14D0FE087F5F3B /* ScriptRunner.swift in Sources */,
+				A22B99B240E8091BA042F044 /* SettingsStore.swift in Sources */,
+				924BBDC01EF6EA5856F757BB /* SettingsView.swift in Sources */,
+				F5BC8C40AF31FB73E49F5A31 /* StatusBarController.swift in Sources */,
+				20E403137AEE36B52E2F7825 /* Types.swift in Sources */,
+				62B0A0F12308E27E45B62661 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3AA896DDC8CF1DF2DFFEC1CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		4488DA64765D1DB42B8942B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		EF6405730BF83E052DB92D82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = YTSkimNative/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.david.ytskim;
+				PRODUCT_NAME = "YT Skim";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FF60C671B5AA249F3AB7FCBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = YTSkimNative/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.david.ytskim;
+				PRODUCT_NAME = "YT Skim";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58BD8E88F36CDF2EFD2A1DD2 /* Build configuration list for PBXNativeTarget "YT Skim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF60C671B5AA249F3AB7FCBF /* Debug */,
+				EF6405730BF83E052DB92D82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CAC54D6200B7A743A471F951 /* Build configuration list for PBXProject "YTSkimNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4488DA64765D1DB42B8942B2 /* Debug */,
+				3AA896DDC8CF1DF2DFFEC1CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67D28E96B901893CF07A5280 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+		EE2F09AE3A7C97A794DC5DBA /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		675EA810D6D79FC646367910 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67D28E96B901893CF07A5280 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		E23600F89392DF4CD69F5D8C /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE2F09AE3A7C97A794DC5DBA /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 40B56CC7533004A8779AE97B /* Project object */;
+}

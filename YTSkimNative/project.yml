@@ -1,0 +1,40 @@
+name: YTSkimNative
+options:
+  bundleIdPrefix: com.david
+settings:
+  base:
+    SWIFT_VERSION: 6.0
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: 2.4.0
+  LaunchAtLogin-Modern:
+    url: https://github.com/sindresorhus/LaunchAtLogin-Modern
+    from: 1.1.0
+targets:
+  YT Skim:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: YTSkimNative
+        excludes:
+          - Info.plist
+          - Resources
+      - path: YTSkimNative/Resources/yt-skim.sh
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.david.ytskim
+        PRODUCT_NAME: YT Skim
+        INFOPLIST_FILE: YTSkimNative/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+    dependencies:
+      - package: KeyboardShortcuts
+      - package: LaunchAtLogin-Modern
+        product: LaunchAtLogin
+    scheme:
+      gatherCoverageData: false
+      testTargets: []

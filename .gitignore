@@ -1,0 +1,6 @@
+dist/
+build/
+.cache/
+.swiftpm-cache/
+YTSkimMenuBar/.build/
+YTSkimNative/YTSkimNative.xcodeproj/xcuserdata/
