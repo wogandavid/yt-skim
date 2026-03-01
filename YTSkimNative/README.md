@@ -40,6 +40,23 @@ Optional:
 ./scripts/create-dmg.sh "$(pwd)/dist/YT Skim.app"
 ```
 
+## User Operation
+
+1. Launch `YT Skim.app`.
+2. Copy a supported YouTube or X URL.
+3. Trigger summary via:
+- Menu bar `Summarize Clipboard`
+- Default global hotkey `Cmd+Shift+Y`
+4. Review result in the popover and use `Copy` as needed.
+
+Settings and controls:
+
+- `Settings` (menu item, `Cmd+,`) lets users change the global hotkey.
+- `Mode` menu selects `Short`, `Standard`, `Structured`.
+- `Replace Clipboard` toggles overwrite behavior.
+- `Open Last Summary` reopens `/tmp` summary state.
+- `First-Run Check` validates dependencies and OpenAI login status.
+
 ## Manual Reliability Checklist
 
 1. Launch app and confirm menu bar item appears immediately.

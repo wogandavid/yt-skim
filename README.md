@@ -50,6 +50,30 @@ brew install steipete/tap/bird
 - `codex` available
 - `Codex login status` is logged in (OpenAI account connected)
 
+## How To Use The App
+
+1. Launch `YT Skim.app` from `Applications`.
+2. Click the YT Skim icon in the menu bar.
+3. Copy a supported YouTube or X link to your clipboard.
+4. Trigger summarization:
+- Menu bar: `Summarize Clipboard`
+- Keyboard shortcut (default): `Cmd+Shift+Y`
+5. Read the summary in the popover; use `Copy` if needed.
+
+Hotkey customization:
+
+1. Open the app menu and choose `Settings` (or press `Cmd+,` while menu is open).
+2. Under `Global Hotkey`, click the recorder and press your preferred key combo.
+
+Main menu options:
+
+- `Mode > Short | Standard | Structured`
+- `Replace Clipboard` (on by default)
+- `Launch at Login`
+- `Open Last Summary`
+- `First-Run Check`
+- `Quit`
+
 ## Runtime Behavior
 
 - Default mode: `Standard`
