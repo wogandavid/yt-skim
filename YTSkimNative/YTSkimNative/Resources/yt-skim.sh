@@ -20,6 +20,7 @@ META_FILE="/tmp/yt-skim-last-meta.json"
 TTL_SECONDS=1800
 CODEX_BIN=""
 SOURCE_KIND=""
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
   cat <<'EOF_USAGE'
@@ -252,6 +253,18 @@ is_x_fetch_unavailable_error() {
     || [[ "$lower" == *"unable to fetch"* && "$lower" == *"x"* ]]
 }
 
+is_auth_error() {
+  local text="$1"
+  local lower
+  lower="$(printf '%s' "$text" | tr '[:upper:]' '[:lower:]')"
+
+  [[ "$lower" == *"codex login"* ]] \
+    || [[ "$lower" == *"not logged in"* ]] \
+    || [[ "$lower" == *"authentication required"* ]] \
+    || [[ "$lower" == *"auth required"* ]] \
+    || [[ "$lower" == *"unauthorized"* ]]
+}
+
 preview_text() {
   local text="$1"
   printf '%s' "$text" | tr '\n' ' ' | sed -E 's/[[:space:]]+/ /g' | cut -c1-220
@@ -374,6 +387,16 @@ main() {
   if ! output="$(summarize_link "$SOURCE_KIND" "$source_url" 2>&1)"; then
     echo "$output" >&2
 
+    if is_auth_error "$output"; then
+      local auth_message="Couldn't summarize. Please run 'codex login' first."
+      local auth_details="Codex CLI appears unauthenticated. Open Terminal and run: codex login. Backend output: $output"
+      if (( JSON_OUTPUT == 1 )); then
+        emit_json_error "BACKEND_FAIL" "$auth_message" "$auth_details" "$EXIT_SUMMARIZE_FAIL"
+      fi
+      error_notify "$auth_message"
+      exit "$EXIT_SUMMARIZE_FAIL"
+    fi
+
     if [[ "$SOURCE_KIND" == "x" ]] && is_x_fetch_unavailable_error "$output"; then
       local x_message="Couldn't summarize this X post. It may be private or require extra fetch support."
       local x_details="Try a public post, or install bird for better X support. Backend output: $output"
@@ -423,7 +446,8 @@ main() {
     local action
     action="$(popup_prompt || true)"
     if [[ "$action" == "Open" ]]; then
-      "/Users/david/Documents/tldr/bin/yt-skim-popup.sh" >/dev/null 2>&1 || true
+      local popup_script="${SCRIPT_DIR}/yt-skim-popup.sh"
+      [[ -x "$popup_script" ]] && "$popup_script" >/dev/null 2>&1 || true
     fi
   fi
 

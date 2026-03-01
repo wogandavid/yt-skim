@@ -1,33 +1,37 @@
-# macOS Shortcuts Setup
+# macOS Shortcuts Setup (Legacy CLI Workflow)
+
+This is optional and separate from the native menu bar app.
+
+Set `REPO_ROOT` to your local clone path.
 
 ## Shortcut 1: `YT Skim`
 
-1. Open the **Shortcuts** app.
-2. Create a new shortcut named `YT Skim`.
-3. Add action: **Run Shell Script**.
-4. Set script to:
+1. Open **Shortcuts**.
+2. Create shortcut `YT Skim`.
+3. Add **Run Shell Script** action:
 
 ```bash
-/Users/david/Documents/tldr/bin/yt-skim.sh --mode standard
+REPO_ROOT="$HOME/path/to/tldr"
+"$REPO_ROOT/bin/yt-skim.sh" --mode standard
 ```
 
-5. In shortcut settings, assign keyboard shortcut: `Cmd+Shift+Y` (recommended).
+4. Assign keyboard shortcut (example): `Cmd+Shift+Y`.
 
 ## Shortcut 2 (optional): `YT Skim Popup`
 
-1. Create another shortcut named `YT Skim Popup`.
-2. Add action: **Run Shell Script**.
-3. Set script to:
+1. Create shortcut `YT Skim Popup`.
+2. Add **Run Shell Script** action:
 
 ```bash
-/Users/david/Documents/tldr/bin/yt-skim-popup.sh
+REPO_ROOT="$HOME/path/to/tldr"
+"$REPO_ROOT/bin/yt-skim-popup.sh"
 ```
 
-4. Assign keyboard shortcut: `Cmd+Shift+Option+Y` (recommended).
+3. Assign keyboard shortcut (example): `Cmd+Shift+Option+Y`.
 
 ## Notes
 
-- `YT Skim` uses clipboard URL unless `--url` is passed.
-- Script accepts only `youtube.com` and `youtu.be` links in v0.
-- On success, summary replaces clipboard by default.
-- Use `--keep-clipboard` if you do not want clipboard replacement.
+- Uses clipboard URL unless `--url` is passed.
+- Supports YouTube and X URLs.
+- Success overwrites clipboard with summary by default.
+- Use `--keep-clipboard` to preserve clipboard.

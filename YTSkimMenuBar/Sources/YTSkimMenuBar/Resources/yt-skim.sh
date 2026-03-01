@@ -367,7 +367,9 @@ main() {
     local action
     action="$(popup_prompt || true)"
     if [[ "$action" == "Open" ]]; then
-      "/Users/david/Documents/tldr/bin/yt-skim-popup.sh" >/dev/null 2>&1 || true
+      local popup_script
+      popup_script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/yt-skim-popup.sh"
+      [[ -x "$popup_script" ]] && "$popup_script" >/dev/null 2>&1 || true
     fi
   fi
 

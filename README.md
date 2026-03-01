@@ -1,58 +1,87 @@
 # YT Skim
 
-YouTube and X link summarizer that avoids opening/watching content.
+Menu bar app for macOS that summarizes YouTube and X links from your clipboard so you can skim content without opening it.
 
-## Production App (Proper Native Path)
+## Who This Release Is For
 
-The release path is now:
-- project spec: [/Users/david/Documents/tldr/YTSkimNative/project.yml](/Users/david/Documents/tldr/YTSkimNative/project.yml)
-- generated project: `/Users/david/Documents/tldr/YTSkimNative/YTSkimNative.xcodeproj`
-- app source: `/Users/david/Documents/tldr/YTSkimNative/YTSkimNative/`
+Technical beta users on macOS who can install CLI dependencies.
 
-Core model:
-- AppKit `NSStatusItem` lifecycle
-- SwiftUI hosted inside AppKit popovers
-- backend engine via bundled `yt-skim.sh --app-mode --json`
+## Supported Links
 
-## Build and Package
+- YouTube: `youtube.com`, `youtu.be` (including mobile links)
+- X posts: `x.com/.../status/...`, `twitter.com/.../status/...`
+
+## Requirements
+
+YT Skim app uses external CLIs for summarization and auth.
+
+1. Install `summarize`:
+
+```bash
+npm install -g @steipete/summarize
+```
+
+2. Install Codex CLI (or Codex app that includes `codex`), then authenticate:
+
+```bash
+codex login
+```
+
+3. Optional but recommended for X reliability:
+
+```bash
+brew install steipete/tap/bird
+```
+
+## Install From DMG
+
+1. Download `YT-Skim-unsigned.dmg` from Releases.
+2. Open DMG and drag `YT Skim.app` to `Applications`.
+3. First launch: right-click app in `Applications` -> `Open`.
+4. If blocked, go to `System Settings -> Privacy & Security` and click `Open Anyway`.
+5. In the app menu, run `First-Run Check` and confirm:
+- `summarize` available
+- `codex` available
+- `Codex login status` is logged in
+
+## Runtime Behavior
+
+- Default mode: `Standard`
+- Trigger: menu item or global hotkey
+- Clipboard summary replacement: enabled by default
+- No persistent history by default (uses `/tmp` for recent summary)
+
+## Known Limitations
+
+- X support is single-post only (no thread expansion).
+- Private/deleted/rate-limited X posts can fail.
+- Without `bird`, X fetch reliability is lower.
+
+## Build Release Artifacts (Maintainers)
 
 Build unsigned app:
 
 ```bash
-/Users/david/Documents/tldr/scripts/build-unsigned-app.sh
+./scripts/build-unsigned-app.sh
 ```
 
 Create unsigned DMG:
 
 ```bash
-/Users/david/Documents/tldr/scripts/create-dmg.sh "/Users/david/Documents/tldr/dist/YT Skim.app"
+./scripts/create-dmg.sh "$(pwd)/dist/YT Skim.app"
 ```
 
 Artifacts:
-- `/Users/david/Documents/tldr/dist/YT Skim.app`
-- `/Users/david/Documents/tldr/dist/YT-Skim-unsigned.dmg`
 
-## Supported Links
-
-- YouTube (`youtube.com`, `youtu.be`, including mobile YouTube links)
-- X post URLs (`x.com/.../status/...` and `twitter.com/.../status/...`)
-
-## Optional Dependency For X
-
-- `bird` is optional but improves X fetch reliability.
-- Install: <https://github.com/steipete/bird>
-
-## Known Limitations
-
-- X support is public-post best effort (single-post only).
-- Private, deleted, or rate-limited X posts can fail.
+- `dist/YT Skim.app`
+- `dist/YT-Skim-unsigned.dmg`
 
 ## CLI Engine Contract
 
 Command:
 
 ```bash
-/Users/david/Documents/tldr/bin/yt-skim.sh --app-mode --json --input-url "<url>" --mode short|standard|structured --keep-clipboard
+./bin/yt-skim.sh --app-mode --json --input-url "<url>" --mode short|standard|structured --keep-clipboard
 ```
 
 Success JSON:
@@ -67,13 +96,7 @@ Failure JSON:
 {"ok":false,"error_code":"INVALID_URL|UNSUPPORTED_URL|MISSING_DEP|X_FETCH_UNAVAILABLE|BACKEND_FAIL","message":"...","details":"...","exit_code":2|3|4}
 ```
 
-## Legacy Path
+## Repo Layout
 
-`/Users/david/Documents/tldr/YTSkimMenuBar` is now legacy (non-release) and retained only for reference while migration completes.
-
-## Unsigned Install (Gatekeeper)
-
-1. Open `YT-Skim-unsigned.dmg`.
-2. Drag `YT Skim.app` into Applications.
-3. Right-click app in Applications -> `Open`.
-4. If blocked, use `System Settings -> Privacy & Security -> Open Anyway`.
+- `YTSkimNative/` = production app path
+- `YTSkimMenuBar/` = legacy reference path

@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-ROOT="/Users/david/Documents/tldr"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DIST_DIR="$ROOT/dist"
 APP_NAME="YT Skim"
 APP_DIR="$DIST_DIR/${APP_NAME}.app"

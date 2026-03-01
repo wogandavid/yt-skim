@@ -35,13 +35,27 @@ final class FirstRunChecker: @unchecked Sendable {
       remediation: summarizeExists ? "No action needed." : "Install summarize and ensure PATH includes its install location."
     ))
 
-    let codexExists = await commandExists("codex") || FileManager.default.isExecutableFile(atPath: "/Applications/Codex.app/Contents/Resources/codex")
+    let codexBundlePath = "/Applications/Codex.app/Contents/Resources/codex"
+    let codexInPath = await commandExists("codex")
+    let codexExists = codexInPath || FileManager.default.isExecutableFile(atPath: codexBundlePath)
     items.append(CheckItem(
       title: "Codex binary availability",
       status: codexExists ? .pass : .fail,
       details: codexExists ? "Found codex binary in PATH or app bundle location." : "Could not find codex binary.",
       remediation: codexExists ? "No action needed." : "Install Codex app/CLI and ensure binary is available."
     ))
+
+    if codexExists {
+      let auth = await codexAuthStatus(codexInPath: codexInPath, codexBundlePath: codexBundlePath)
+      items.append(CheckItem(
+        title: "Codex login status",
+        status: auth.ok ? .pass : .fail,
+        details: auth.details,
+        remediation: auth.ok
+          ? "No action needed."
+          : "Run `codex login` in Terminal, then re-run First-Run Check."
+      ))
+    }
 
     let birdExists = await commandExists("bird")
     items.append(CheckItem(
@@ -70,6 +84,48 @@ final class FirstRunChecker: @unchecked Sendable {
       return process.terminationStatus == 0
     } catch {
       return false
+    }
+  }
+
+  private func codexAuthStatus(codexInPath: Bool, codexBundlePath: String) async -> (ok: Bool, details: String) {
+    let command: String
+    if codexInPath {
+      command = "codex login status 2>&1"
+    } else {
+      command = "\"\(codexBundlePath)\" login status 2>&1"
+    }
+
+    let result = runShell(command)
+    let output = result.output.trimmingCharacters(in: .whitespacesAndNewlines)
+    let lower = output.lowercased()
+    let isLoggedIn = result.status == 0 && lower.contains("logged in")
+
+    if isLoggedIn {
+      return (true, output.isEmpty ? "Logged in to Codex CLI." : output)
+    }
+    if output.isEmpty {
+      return (false, "Unable to confirm Codex authentication state.")
+    }
+    return (false, output)
+  }
+
+  private func runShell(_ command: String) -> (status: Int32, output: String) {
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+    process.arguments = ["-lc", command]
+
+    let pipe = Pipe()
+    process.standardOutput = pipe
+    process.standardError = pipe
+
+    do {
+      try process.run()
+      process.waitUntilExit()
+      let data = pipe.fileHandleForReading.readDataToEndOfFile()
+      let text = String(data: data, encoding: .utf8) ?? ""
+      return (process.terminationStatus, text)
+    } catch {
+      return (1, "Failed to execute command: \(command)")
     }
   }
 

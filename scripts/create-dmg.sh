@@ -3,7 +3,8 @@
 set -euo pipefail
 
 APP_PATH="${1:-}"
-ROOT="/Users/david/Documents/tldr"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEFAULT_APP_PATH="$ROOT/dist/YT Skim.app"
 if [[ -z "$APP_PATH" ]]; then
   APP_PATH="$DEFAULT_APP_PATH"
